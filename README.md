@@ -31,7 +31,7 @@ classDiagram
         +String description
     }
 
-    User "1" *-- "1" Account : has
+    User "1" *-- "1" Account : A cabeça da
     User "1" *-- "N" Feature : has many
     User "1" *-- "1" Card : has
     User "1" *-- "N" News : has many
