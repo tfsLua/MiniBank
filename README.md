@@ -5,34 +5,49 @@ Java RESTful API.
 
 ```mermaid
 classDiagram
-    class User {
-        +String name
+    class Usuario {
+        +UUID id
+        +String nome
+        +String cpf
+        +String email
+        +String senha
+        +String endereco
     }
 
-    class Account {
-        +String number
-        +String agency
-        +double balance
-        +double limit
+    class Cliente {
+        +Int numeroConta
+        +Decimal saldo
     }
 
-    class Feature {
-        +String icon
-        +String description
+    class Gerente {
+        +String login
+        +String senha
     }
 
-    class Card {
-        +String number
-        +double limit
+    class Transferencia {
+        +UUID id
+        +UUID origemId
+        +UUID destinoId
+        +Decimal valor
+        +DateTime data
     }
 
-    class News {
-        +String icon
-        +String description
+    class Emprestimo {
+        +UUID id
+        +UUID clienteId
+        +Decimal valor
+        +String motivo
+        +Enum status
+        +Date dataSolicitacao
     }
 
-    User "1" *-- "1" Account : has
-    User "1" *-- "N" Feature : has many
-    User "1" *-- "1" Card : has
-    User "1" *-- "N" News : has many
+    Usuario <|-- Cliente : herda
+    Usuario <|-- Gerente : herda
+
+    Cliente "1" --> "0..*" Transferencia : envia
+    Cliente "1" --> "0..*" Transferencia : recebe
+
+    Cliente "1" --> "0..*" Emprestimo : solicita
+    Gerente "1" --> "0..*" Emprestimo : avalia
+
   ```
