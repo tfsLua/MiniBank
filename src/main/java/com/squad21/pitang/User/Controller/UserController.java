@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.squad21.pitang.User.User;
 import com.squad21.pitang.User.Repository.IUserRepository;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
+
 @RestController
 @RequestMapping("/users")
 public class UserController {
@@ -26,14 +28,16 @@ public class UserController {
         return userRepository.findAll();
     }
     @PostMapping("/criar")
-    public User create(@RequestBody User userModel){
+    public ResponseEntity create(@RequestBody User userModel){
     var user_cpf = userRepository.findByCpf(userModel.getCpf());
     if(user_cpf != null){   
-        System.out.println("Cpf já cadastrado!");
-        return null;
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Usuário já existe!");
     }
     userModel.setBonus(50);
+    var passwordHashred = BCrypt.withDefaults().
+    hashToString(12, userModel.getSenha().toCharArray());
+    userModel.setSenha(passwordHashred);
     var userCreated = this.userRepository.save(userModel);
-    return userCreated;
+    return ResponseEntity.status(HttpStatus.CREATED).body(userCreated);
     }
 }

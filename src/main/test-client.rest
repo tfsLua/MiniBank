@@ -1,0 +1,15 @@
+###GET
+GET http://localhost:8080/users
+
+###POST
+POST http://localhost:8080/criar
+Content-Type: application/json
+
+{
+    "name" : "Gabriel",
+    "cpf" : 1091111,
+    "endereco" : "Rua teste",
+    "email" : "gabrielao8@hotmail.com",
+    "senha" : "asdfas124"
+
+}
