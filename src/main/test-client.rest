@@ -1,15 +1,15 @@
 ###GET
-GET http://localhost:8080/users
+GET http://localhost:8080/teste/users
 
 ###POST
-POST http://localhost:8080/criar
+POST http://localhost:8080/teste/criar
 Content-Type: application/json
 
 {
-    "name" : "Gabriel",
-    "cpf" : 1091111,
-    "endereco" : "Rua teste",
-    "email" : "gabrielao8@hotmail.com",
-    "senha" : "asdfas124"
+    "nome" : "AndrePereira",
+    "cpf" : "300000",
+    "endereco" : "Gravatá pernambuco",
+    "email" : "sab@hotmail.com",
+    "senha" : "casa123"
 
 }

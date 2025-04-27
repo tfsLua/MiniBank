@@ -18,12 +18,16 @@ public class User{
     @Column(unique = true)
     private Long id;
     private String nome;
-    @Column(unique = true)
-    private int cpf;
+    @Column(unique = true, length = 11)
+    /*
+     * Usar string no cpf inves de int pois, o int não reconhece o 0.
+     * Também não iria reconhecer o padrão "XX.XX.XX---X" etc.
+    */
+    private String cpf;
     private String endereco;
     private String email;
     private String senha;
-    private double bonus;
+    private double saldo;
     
     @CreationTimestamp
     private LocalDateTime createdAt;

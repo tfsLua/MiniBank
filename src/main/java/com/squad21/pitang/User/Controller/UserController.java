@@ -18,7 +18,7 @@ import com.squad21.pitang.User.Repository.IUserRepository;
 import at.favre.lib.crypto.bcrypt.BCrypt;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/teste")
 public class UserController {
     @Autowired
     private IUserRepository userRepository;
@@ -33,7 +33,7 @@ public class UserController {
     if(user_cpf != null){   
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Usuário já existe!");
     }
-    userModel.setBonus(50);
+    userModel.setSaldo(50);
     var passwordHashred = BCrypt.withDefaults().
     hashToString(12, userModel.getSenha().toCharArray());
     userModel.setSenha(passwordHashred);

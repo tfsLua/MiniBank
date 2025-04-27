@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import com.squad21.pitang.User.User;
 @Repository
-public interface IUserRepository extends JpaRepository<User, Long> {
-    User findByCpf(int cpf);  
+public interface IUserRepository extends JpaRepository<User, Long>{
+    User findBynome(String nome);
+    User findByCpf(String cpf);  
 }
