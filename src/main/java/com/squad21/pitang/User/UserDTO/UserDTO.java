@@ -1,8 +1,6 @@
-package com.squad21.pitang.User.dto;
-
+package com.squad21.pitang.User.UserDTO;
 import jakarta.validation.constraints.*;
 
-import java.math.BigDecimal;
 public record UserDTO(
 
         @NotBlank(message = "O nome completo não pode estar em branco")

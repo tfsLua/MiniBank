@@ -6,7 +6,7 @@ import java.util.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.squad21.pitang.User.Repository.IUserRepository;
+import com.squad21.pitang.User.Client.ClientController.ClientRepository.ClientRepository;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import jakarta.servlet.FilterChain;
@@ -19,7 +19,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 public class FilterTaskAuth extends OncePerRequestFilter {
     @Autowired
-    private IUserRepository userRepository;
+    private ClientRepository userRepository;
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
