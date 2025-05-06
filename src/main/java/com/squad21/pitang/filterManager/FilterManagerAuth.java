@@ -1,4 +1,4 @@
-package com.squad21.pitang.filter;
+package com.squad21.pitang.filterManager;
 
 import java.io.IOException;
 import java.util.Base64;
@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.squad21.pitang.User.Client.ClientController.ClientRepository.ClientRepository;
+import com.squad21.pitang.User.Manager.ManagerRepository.MnRepository;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import jakarta.servlet.FilterChain;
@@ -15,13 +15,13 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 @Component
-public class FilterTaskAuth extends OncePerRequestFilter {
+public class FilterManagerAuth extends OncePerRequestFilter {
     /*
      * Isso garante que o filtro será executado uma única vez por requisição, mesmo se houver redirecionamentos internos.
 
      */
     @Autowired
-    private ClientRepository clientRepository;
+    private MnRepository loginMnRepository;
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
     /*
@@ -32,7 +32,7 @@ public class FilterTaskAuth extends OncePerRequestFilter {
     */ 
             throws ServletException, IOException {
             var serverletPath = request.getServletPath();
-                if(serverletPath.equals("/login/client")){
+                if(serverletPath.equals("/manager/users")){
                 // Pegar a autenticação(usuario e senha)
                var authorization = request.getHeader("Authorization");
                System.out.println(authorization);
@@ -45,25 +45,21 @@ public class FilterTaskAuth extends OncePerRequestFilter {
 
                //[danieleleao]
                String[] credentials = authString.split(":");
-               String numeroContaStr = credentials[0];
+               String username = credentials[0];
                String password = credentials[1];
-               System.out.println(numeroContaStr);
                System.out.println(password);
-               Long numeroConta;
                 // Validar usuário
-                try{
-                    numeroConta = Long.parseLong(numeroContaStr);
-                } catch(NumberFormatException exception){
+                if(username.matches("\\d+")){
                     response.setStatus(401);
                     response.setContentType("application/json");
-                    response.getWriter().write("{\"error\": \"O nome do cliente deve ser um número válido (número da conta).\"}");
+                    response.getWriter().write("{\"error\": \"Informe o nome do gerente!.\"}");
                     return;
                 }
-                var user = this.clientRepository.findByNumeroConta(numeroConta);
+                var user = this.loginMnRepository.findBynome(username);
                 if(user == null){
                     response.setStatus(401);
                     response.setContentType("application/json");
-                    response.getWriter().write("{\"error\": \"O cliente não existe!\"}");
+                    response.getWriter().write("{\"error\": \"O gerente não existe!\"}");
                 } else {
                 // Validar senha
                 var passwordVerify = BCrypt.verifyer().verify(password.toCharArray(), user.getSenha());

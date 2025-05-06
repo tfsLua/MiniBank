@@ -10,5 +10,6 @@ import com.squad21.pitang.User.Client.ClientModel.ClientModel;
 @Repository
 public interface ClientRepository extends JpaRepository<ClientModel, UUID>{
     ClientModel findBynome(String nome);
+    ClientModel findByNumeroConta(Long numeroConta);
     ClientModel findByCpf(String cpf);  
 }

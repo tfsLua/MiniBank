@@ -10,25 +10,26 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.squad21.pitang.User.Manager.ManagerModel.MnModel;
+import com.squad21.pitang.User.Manager.DTO.ManagerDTO;
+import com.squad21.pitang.User.Manager.ManagerService.ManagerService;
+
 import jakarta.validation.Valid;
 
-import com.squad21.pitang.User.Manager.ManagerModel.Manager;
-import com.squad21.pitang.User.Manager.ManagerService.ManagerService;
-import com.squad21.pitang.User.UserDTO.UserDTO;
 
 @RestController
-@RequestMapping("/managers")
-public class ManagerController {
+@RequestMapping("/manager")
+public class MnController {
     @Autowired
     private ManagerService managerService;
 
     @GetMapping("/users")
-    public List <Manager> getManagers(){
-        return managerService.getAllManagers();
+    public List <MnModel> getUsers(){
+        return managerService.getAllUsers();
     }
 
     @PostMapping("/create")
-    public ResponseEntity<?> create(@Valid @RequestBody UserDTO data){
-    return managerService.createManager(data);
+    public ResponseEntity<?> create(@Valid @RequestBody ManagerDTO data){
+    return managerService.createUser(data);
     }
 }

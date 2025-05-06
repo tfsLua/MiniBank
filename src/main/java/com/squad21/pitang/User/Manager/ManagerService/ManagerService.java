@@ -1,4 +1,5 @@
 package com.squad21.pitang.User.Manager.ManagerService;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -6,40 +7,53 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.squad21.pitang.User.Manager.ManagerModel.Manager;
-import com.squad21.pitang.User.Manager.ManagerRepository.ManagerRepository;
-import com.squad21.pitang.User.UserDTO.UserDTO;
+import com.squad21.pitang.User.Manager.DTO.ManagerDTO;
+import com.squad21.pitang.User.Manager.ManagerModel.MnModel;
+import com.squad21.pitang.User.Manager.ManagerRepository.MnRepository;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 
 @Service
-public class ManagerService {
-
+    public class ManagerService {
     @Autowired
-    private ManagerRepository managerRepository;
+        private MnRepository managerRepository;
 
-    public List<Manager> getAllManagers() {
-        return managerRepository.findAll();
-    }
+        public List<MnModel> getAllUsers() {
+            return managerRepository.findAll();
+        }
 
-    public ResponseEntity<?> createManager(UserDTO data) {
-        var existing = managerRepository.findByCpf(data.cpf());
-        if (existing != null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+        public ResponseEntity<?> createUser(ManagerDTO data){
+        
+        var user_cpf = managerRepository.findByCpf(data.cpf());
+        if(user_cpf != null){
+            return ResponseEntity.
+            status(HttpStatus.BAD_REQUEST)
             .body("{\"error\": \"CPF já cadastrado!\"}");
         }
 
-        Manager manager = new Manager();
-        manager.setNome(data.nome());
-        manager.setCpf(data.cpf());
-        manager.setEmail(data.email());
-        manager.setEndereco(data.endereco());
+        MnModel newClient = new MnModel();
+        newClient.setNome(data.nome());
+        newClient.setCpf(data.cpf());
+        newClient.setEmail(data.email());
+        newClient.setEndereco(data.endereco());
+        /* 
+        2792948BX422@!
+        if(CodigoAcesso == 2792948BX422@!)
+        */ 
+        newClient.setCodigoAcesso(data.CodigoAcesso());
+        if ("2792948BX422@!".equals(data.CodigoAcesso())) {
+        
+        var passwordHashred = BCrypt.withDefaults().
+            hashToString(12, 
+            data.senha().
+            toCharArray());
+            newClient.setSenha(passwordHashred);
 
-        var hashedPassword = BCrypt.withDefaults()
-        .hashToString(12, data.senha().toCharArray());
-        manager.setSenha(hashedPassword);
+        var clientCreated = this.managerRepository.save(newClient);
 
-        var saved = managerRepository.save(manager);
-        return ResponseEntity.status(HttpStatus.CREATED).body(saved);
+        return ResponseEntity.status(HttpStatus.CREATED).body(clientCreated);
+        } else {
+            return ResponseEntity.status(404).body("Código de acesso incorreto!");
+        }
     }
 }

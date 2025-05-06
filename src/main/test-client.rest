@@ -12,7 +12,7 @@ Content-Type: application/json
     "email" : "RodrigoPereira@Jequitinhonha",
     "senha" : "teste2"
 }
-
+//384306 casa270305
 ###GET MANAGERS
 GET http://localhost:8081/managers/users
 
