@@ -9,6 +9,6 @@ import lombok.EqualsAndHashCode;
 @Data
 @Entity(name = "Manager login")
 public class MnModel extends User {
-    @Column(unique = true)
+    @Column
     private String CodigoAcesso;
 }

@@ -1,8 +1,5 @@
 package com.squad21.pitang.task;
-import java.time.LocalDateTime;
 import java.util.UUID;
-
-import org.hibernate.annotations.CreationTimestamp;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -19,16 +16,4 @@ public class TaskModel {
     @Column(unique = true)
     private Long id;
     private UUID id_usuario;
-    private String descricao;
-    @Column(length = 50)
-    private String titulo;
-
-    private LocalDateTime data_inicio;
-    private LocalDateTime data_fim;
-
-    @CreationTimestamp
-    private LocalDateTime createdAt;
-
-    private String prioridade;
-    
 }
