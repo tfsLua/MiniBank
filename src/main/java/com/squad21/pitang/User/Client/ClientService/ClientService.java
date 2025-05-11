@@ -1,7 +1,6 @@
 package com.squad21.pitang.User.Client.ClientService;
 
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +17,6 @@ import at.favre.lib.crypto.bcrypt.BCrypt;
     public class ClientService {
     @Autowired
         private ClientRepository clientRepository;
-
-        public List<ClientModel> getAllUsers() {
-            return clientRepository.findAll();
-        }
 
         public ResponseEntity<?> createUser(UserDTO data){
         
@@ -50,4 +45,4 @@ import at.favre.lib.crypto.bcrypt.BCrypt;
 
         return ResponseEntity.status(HttpStatus.CREATED).body(clientCreated);
     }
-    }
+}
