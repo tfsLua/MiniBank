@@ -1,0 +1,29 @@
+###GET CLIENTS
+GET http://localhost:8081/client/users
+
+###POST CLIENTS
+POST http://localhost:8081/client/create
+Content-Type: application/json
+
+{
+    "nome" : "Ana Maria Braga",
+    "cpf" : "46326463133",
+    "endereco" : "Rua Jequitinhonha",
+    "email" : "RodrigoPereira@Jequitinhonha",
+    "senha" : "teste2"
+}
+//384306 casa270305
+###GET MANAGERS
+GET http://localhost:8081/managers/users
+
+###POST MANAGERS
+POST http://localhost:8081/managers/create
+Content-Type: application/json
+
+{
+    "nome" : "Uruguai",
+    "cpf" : "19573333111",
+    "endereco" : "Rua Dom Jose Lopes",
+    "email" : "gabrielao8@hotmail.com",
+    "senha" : "rodrigodaimao"
+}
